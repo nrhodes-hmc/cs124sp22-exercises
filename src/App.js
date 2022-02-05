@@ -1,6 +1,7 @@
 import './App.css';
 
-import {useEffect, useState} from 'react';
+import People from './People';
+import {useState} from 'react';
 
 const data = [
     {
@@ -17,49 +18,6 @@ const data = [
     }
 ];
 
-function Person(props) {
-    const person = props.person;
-    const [dim, setDim] = useState(false);
-    const classNames = [];
-    if (props.isSelected) {
-        classNames.push("selected");
-    }
-    if (dim) {
-        classNames.push("dim");
-    }
-    if (!props.isSelected && dim) {
-        setDim(false)
-    }
-
-    useEffect(() => {
-        if (props.isSelected) {
-            const timeout = setTimeout(() => setDim(!dim), 1000);
-            return () => clearTimeout(timeout);
-        } else {
-            return null;
-        }
-    });
-    return <tr className={classNames.join(" ")}
-               onClick={(e) => (e.shiftKey ? props.onPersonToggleSelected : props.onPersonSelected)(person)}>
-        <td className={"name"}>{person.name}</td>
-        <td className={"email"}>{person.email}</td>
-        <td className={"phone"}>{person.phone}</td>
-    </tr>;
-}
-
-function People(props) {
-    return <table>
-        <tbody>
-        {props.people.map(p =>
-            <Person person={p}
-                    key={p.name}
-                    isSelected={props.selectedPeopleIds.includes(p.id)}
-                    onPersonToggleSelected={props.onPersonToggleSelected}
-                    onPersonSelected={props.onPersonSelected}/>
-        )}
-        </tbody>
-    </table>
-}
 
 function App() {
     /*

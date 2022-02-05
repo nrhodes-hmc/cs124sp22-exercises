@@ -7,10 +7,6 @@ table {
   background-color: lightyellow;
 }
 
-.dim {
-  opacity: 50%;
-}
-
 .name {
   font-family: "Helvetica", sans-serif;
   font-weight: bold;
