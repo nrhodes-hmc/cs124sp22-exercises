@@ -33,8 +33,8 @@ function Person(props) {
 
     useEffect(() => {
         if (props.isSelected) {
-            const intervalId = setInterval(() => setDim(!dim), 1000);
-            return () => clearInterval(intervalId);
+            const timeout = setTimeout(() => setDim(!dim), 1000);
+            return () => clearTimeout(timeout);
         } else {
             return null;
         }
