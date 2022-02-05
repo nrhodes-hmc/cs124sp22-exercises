@@ -30,6 +30,7 @@ function App() {
      <React.Fragment>
      */
     const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
+    const [people, setPeople] = useState(data);
 
     function handlePersonSelected(person) {
         setSelectedPeopleIds([person.id]);
@@ -43,9 +44,16 @@ function App() {
         }
     }
 
+    function handleDeleteSelected() {
+        setPeople(people.filter(p => !selectedPeopleIds.includes(p.id)));
+        setSelectedPeopleIds([]);
+    }
+
     return <>
-        <h1>People ({selectedPeopleIds.length}/{data.length} selected)</h1>
-        <People people={data} selectedPeopleIds={selectedPeopleIds}
+        <h1>People ({selectedPeopleIds.length}/{people.length} selected)</h1>
+        {selectedPeopleIds.length > 0 &&
+        <button type={"button"} onClick={handleDeleteSelected}>Delete Selected</button>}
+        <People people={people} selectedPeopleIds={selectedPeopleIds}
                 onPersonSelected={handlePersonSelected}
                 onPersonToggleSelected={handlePersonToggleSelected}/>
     </>;
