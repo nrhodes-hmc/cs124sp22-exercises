@@ -1,6 +1,6 @@
 import './App.css';
 
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const data = [
     {
@@ -19,8 +19,27 @@ const data = [
 
 function Person(props) {
     const person = props.person;
-    const className = props.isSelected ? "selected" : "";
-    return <tr className={className} onClick={e => props.onPersonSelected(person)}>
+    const [dim, setDim] = useState(false);
+    const classNames = [];
+    if (props.isSelected) {
+        classNames.push("selected");
+    }
+    if (dim) {
+        classNames.push("dim");
+    }
+    if (!props.isSelected && dim) {
+        setDim(false)
+    }
+
+    useEffect(() => {
+        if (props.isSelected) {
+            const intervalId = setInterval(() => setDim(!dim), 1000);
+            return () => clearInterval(intervalId);
+        } else {
+            return null;
+        }
+    });
+    return <tr className={classNames.join(" ")} onClick={e => props.onPersonSelected(person)}>
         <td className={"name"}>{person.name}</td>
         <td className={"email"}>{person.email}</td>
         <td className={"phone"}>{person.phone}</td>
