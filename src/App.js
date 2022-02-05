@@ -39,7 +39,8 @@ function Person(props) {
             return null;
         }
     });
-    return <tr className={classNames.join(" ")} onClick={e => props.onPersonSelected(person)}>
+    return <tr className={classNames.join(" ")}
+               onClick={(e) => (e.shiftKey ? props.onPersonToggleSelected : props.onPersonSelected)(person)}>
         <td className={"name"}>{person.name}</td>
         <td className={"email"}>{person.email}</td>
         <td className={"phone"}>{person.phone}</td>
@@ -52,7 +53,8 @@ function People(props) {
         {props.people.map(p =>
             <Person person={p}
                     key={p.name}
-                    isSelected={p === props.selectedPerson}
+                    isSelected={props.selectedPeople.includes(p)}
+                    onPersonToggleSelected={props.onPersonToggleSelected}
                     onPersonSelected={props.onPersonSelected}/>
         )}
         </tbody>
@@ -69,13 +71,25 @@ function App() {
      is equivalent to:
      <React.Fragment>
      */
-    const [selectedPerson, setSelectedPerson] = useState(null);
+    const [selectedPeople, setSelectedPeople] = useState([]);
 
+    function handlePersonSelected(person) {
+        setSelectedPeople([person]);
+    }
+
+    function handlePersonToggleSelected(person) {
+        if (selectedPeople.includes(person)) {
+            setSelectedPeople(selectedPeople.filter(p => p !== person));
+        } else {
+            setSelectedPeople([...selectedPeople, person]);
+        }
+    }
 
     return <>
-        <h1>People ({selectedPerson === null ? 0 : 1}/{data.length} selected)</h1>
-        <People people={data} selectedPerson={selectedPerson}
-                onPersonSelected={setSelectedPerson}/>
+        <h1>People ({selectedPeople.length}/{data.length} selected)</h1>
+        <People people={data} selectedPeople={selectedPeople}
+                onPersonSelected={handlePersonSelected}
+                onPersonToggleSelected={handlePersonToggleSelected}/>
     </>;
 }
 
