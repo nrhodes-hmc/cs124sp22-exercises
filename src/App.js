@@ -53,7 +53,7 @@ function People(props) {
         {props.people.map(p =>
             <Person person={p}
                     key={p.name}
-                    isSelected={props.selectedPeople.includes(p)}
+                    isSelected={props.selectedPeopleIds.includes(p.id)}
                     onPersonToggleSelected={props.onPersonToggleSelected}
                     onPersonSelected={props.onPersonSelected}/>
         )}
@@ -71,23 +71,23 @@ function App() {
      is equivalent to:
      <React.Fragment>
      */
-    const [selectedPeople, setSelectedPeople] = useState([]);
+    const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
 
     function handlePersonSelected(person) {
-        setSelectedPeople([person]);
+        setSelectedPeopleIds([person.id]);
     }
 
     function handlePersonToggleSelected(person) {
-        if (selectedPeople.includes(person)) {
-            setSelectedPeople(selectedPeople.filter(p => p !== person));
+        if (selectedPeopleIds.includes(person.id)) {
+            setSelectedPeopleIds(selectedPeopleIds.filter(p => p !== person.id));
         } else {
-            setSelectedPeople([...selectedPeople, person]);
+            setSelectedPeopleIds([...selectedPeopleIds, person.id]);
         }
     }
 
     return <>
-        <h1>People ({selectedPeople.length}/{data.length} selected)</h1>
-        <People people={data} selectedPeople={selectedPeople}
+        <h1>People ({selectedPeopleIds.length}/{data.length} selected)</h1>
+        <People people={data} selectedPeopleIds={selectedPeopleIds}
                 onPersonSelected={handlePersonSelected}
                 onPersonToggleSelected={handlePersonToggleSelected}/>
     </>;
