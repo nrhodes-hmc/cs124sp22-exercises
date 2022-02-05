@@ -1,5 +1,7 @@
 import './App.css';
 
+import {useState} from 'react';
+
 const data = [
     {
         id: 512,
@@ -16,17 +18,24 @@ const data = [
 ];
 
 function Person(props) {
-    return <tr>
-        <td className={"name"}>{props.name}</td>
-        <td className={"email"}>{props.email}</td>
-        <td className={"phone"}>{props.phone}</td>
+    const person = props.person;
+    const className = props.isSelected ? "selected" : "";
+    return <tr className={className} onClick={e => props.onPersonSelected(person)}>
+        <td className={"name"}>{person.name}</td>
+        <td className={"email"}>{person.email}</td>
+        <td className={"phone"}>{person.phone}</td>
     </tr>;
 }
 
 function People(props) {
     return <table>
         <tbody>
-        {props.people.map(p => <Person {...p}/>)}
+        {props.people.map(p =>
+            <Person person={p}
+                    key={p.name}
+                    isSelected={p === props.selectedPerson}
+                    onPersonSelected={props.onPersonSelected}/>
+        )}
         </tbody>
     </table>
 }
@@ -41,9 +50,13 @@ function App() {
      is equivalent to:
      <React.Fragment>
      */
+    const [selectedPerson, setSelectedPerson] = useState(null);
+
+
     return <>
-        <h1>People</h1>
-        <People people={data}/>
+        <h1>People ({selectedPerson === null ? 0 : 1}/{data.length} selected)</h1>
+        <People people={data} selectedPerson={selectedPerson}
+                onPersonSelected={setSelectedPerson}/>
     </>;
 }
 
