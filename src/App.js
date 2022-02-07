@@ -2,6 +2,7 @@ import './App.css';
 
 import People from './People';
 import {useState} from 'react';
+import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 const data = [
     {
@@ -54,8 +55,19 @@ function App() {
         setSelectedPeopleIds([]);
     }
 
+    function handleAddPerson() {
+        setPeople([...people,
+            {
+                id: generateUniqueID(),
+                name: "",
+                email: "",
+                phone: "",
+            }]);
+    }
+
     return <>
         <h1>People ({selectedPeopleIds.length}/{people.length} selected)</h1>
+        <button type={"button"} onClick={handleAddPerson}>Add</button>
         {selectedPeopleIds.length > 0 &&
         <button type={"button"} onClick={handleDeleteSelected}>Delete Selected</button>}
         <People people={people} selectedPeopleIds={selectedPeopleIds}
