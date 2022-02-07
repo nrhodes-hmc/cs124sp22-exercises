@@ -1,3 +1,4 @@
+import './People.css';
 import Person from './Person';
 
 function People(props) {

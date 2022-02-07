@@ -1,0 +1,15 @@
+
+.name {
+    font-family: "Helvetica", sans-serif;
+    font-weight: bold;
+}
+
+.email {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+    text-align: center;
+}
+
+.phone {
+    font-family: "Helvetica", sans-serif;
+}
