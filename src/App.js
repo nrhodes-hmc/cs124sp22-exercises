@@ -44,6 +44,11 @@ function App() {
         }
     }
 
+    function handleChangeField(personId, field, value) {
+        setPeople(people.map(
+            p => p.id === personId ? {...p, [field]: value} : p))
+    }
+
     function handleDeleteSelected() {
         setPeople(people.filter(p => !selectedPeopleIds.includes(p.id)));
         setSelectedPeopleIds([]);
@@ -55,6 +60,7 @@ function App() {
         <button type={"button"} onClick={handleDeleteSelected}>Delete Selected</button>}
         <People people={people} selectedPeopleIds={selectedPeopleIds}
                 onPersonSelected={handlePersonSelected}
+                onPersonChangeField={handleChangeField}
                 onPersonToggleSelected={handlePersonToggleSelected}/>
     </>;
 }
