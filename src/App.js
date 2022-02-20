@@ -1,8 +1,6 @@
 import './App.css';
 
-import People from './People';
 import {useState} from 'react';
-import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 const data = [
     {
