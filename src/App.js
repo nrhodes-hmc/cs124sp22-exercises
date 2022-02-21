@@ -2,36 +2,29 @@ import './App.css';
 
 import People from './People';
 import {useState} from 'react';
-import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
+import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
+import { useCollection, useCollectionData } from "react-firebase-hooks/firestore";
+import { initializeApp } from "firebase/app";
+import { collection, deleteDoc, doc, getFirestore, setDoc } from "firebase/firestore";
 
-const data = [
-    {
-        id: 512,
-        name: "Neil Rhodes",
-        email: "rhodes@hmc.edu",
-        phone: "(909) 555-1212"
-    },
-    {
-        id: 787,
-        name: "Barack Obama",
-        email: "ex-prez@whitehouse.gov",
-        phone: "(312) 555-1212"
-    }
-];
+const firebaseConfig = {
+    apiKey: "AIzaSyCYhMdciPP9F9Gs38fUEHnOP_C63RwkDFo",
+    authDomain: "cs124-firestore-impl-exercise.firebaseapp.com",
+    projectId: "cs124-firestore-impl-exercise",
+    storageBucket: "cs124-firestore-impl-exercise.appspot.com",
+    messagingSenderId: "492659596453",
+    appId: "1:492659596453:web:fa8ea46ba19f37c0fa414c"
+};
 
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
+
+const collectionName = "People-0-A"
 
 function App() {
-    /*
-    <Person {...p}/>
-     is equivalent to:
-     <Person name={p.name} email={p.email} phone={p.phone}/>
-
-     <>
-     is equivalent to:
-     <React.Fragment>
-     */
     const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
-    const [people, setPeople] = useState(data);
+    const query = collection(db, collectionName);
+    const [people, loading, error] = useCollectionData(query);
 
     function handlePersonSelected(person) {
         setSelectedPeopleIds([person.id]);
@@ -46,25 +39,28 @@ function App() {
     }
 
     function handleChangeField(personId, field, value) {
-        setPeople(people.map(
-            p => p.id === personId ? {...p, [field]: value} : p))
+        setDoc(doc(db, collectionName, personId),
+            {[field]: value}, {merge: true})
     }
 
     function handleDeleteSelected() {
-        setPeople(people.filter(p => !selectedPeopleIds.includes(p.id)));
+        selectedPeopleIds.forEach(id => deleteDoc(doc(db, collectionName, id)));
         setSelectedPeopleIds([]);
     }
 
     function handleAddPerson() {
-        setPeople([...people,
-            {
-                id: generateUniqueID(),
-                name: "",
-                email: "",
-                phone: "",
-            }]);
+        const uniqueId = generateUniqueID();
+        setDoc(doc(db, collectionName, uniqueId),
+             {
+                 id: uniqueId,
+                 name: "",
+                 email: "",
+                 phone: "",
+             });
     }
-
+    if (loading) {
+        return "loading..";
+    }
     return <>
         <h1>People ({selectedPeopleIds.length}/{people.length} selected)</h1>
         <button type={"button"} onClick={handleAddPerson}>Add</button>
