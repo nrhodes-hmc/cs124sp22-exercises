@@ -1,10 +1,10 @@
 import './App.css';
 
 import People from './People';
-import {useState} from 'react';
-import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
+import { useState } from 'react';
+import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 
-const data = [
+const initialData = [
     {
         id: 512,
         name: "Neil Rhodes",
@@ -21,17 +21,8 @@ const data = [
 
 
 function App() {
-    /*
-    <Person {...p}/>
-     is equivalent to:
-     <Person name={p.name} email={p.email} phone={p.phone}/>
-
-     <>
-     is equivalent to:
-     <React.Fragment>
-     */
     const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
-    const [people, setPeople] = useState(data);
+    const [people, setPeople] = useState(initialData);
 
     function handlePersonSelected(person) {
         setSelectedPeopleIds([person.id]);
