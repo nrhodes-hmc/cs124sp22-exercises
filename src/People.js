@@ -1,7 +1,10 @@
 import './People.css';
 import Person from './Person';
+import { useMediaQuery } from 'react-responsive';
 
 function People(props) {
+    const isMobile = useMediaQuery({maxWidth: 600})
+
     return <table>
         <tbody>
         {props.people.map(p =>
