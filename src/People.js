@@ -3,15 +3,15 @@ import Person from './Person';
 import { useMediaQuery } from 'react-responsive';
 
 function People(props) {
-    const isMobile = useMediaQuery({maxWidth: 600})
+    const narrow = useMediaQuery({maxWidth: 600})
 
     return <table>
         <thead>
-        <tr className={"people-header"}>
+        {!narrow && <tr className={"people-header"}>
             <th className={"name header"}>Name</th>
             <th className={"email header"}>Email</th>
             <th className={"phone header"}>Phone</th>
-        </tr>
+        </tr>}
         </thead>
         <tbody>
         {props.people.map(p =>
