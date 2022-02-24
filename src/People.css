@@ -1,2 +1,23 @@
+table {
+    width: 900px;
+}
+
+td {
+    font-size: large;
+}
+
+.header {
+    font-weight: bold;
+    font-size: small;
+    width: 25%;
+}
+
+.name {
+    width: 50%;
+    font-size: small;
+}
 
 
+h1 {
+    text-align: center;
+}git c

@@ -3,6 +3,13 @@ import Person from './Person';
 
 function People(props) {
     return <table>
+        <thead>
+        <tr className={"people-header"}>
+            <th className={"name header"}>Name</th>
+            <th className={"email header"}>Email</th>
+            <th className={"phone header"}>Phone</th>
+        </tr>
+        </thead>
         <tbody>
         {props.people.map(p =>
             <Person person={p}
