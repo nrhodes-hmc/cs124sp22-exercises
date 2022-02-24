@@ -3,7 +3,7 @@ import PersonField from './PersonField'
 
 function Person(props) {
     const person = props.person;
-    const classNames = [];
+    const classNames = ["person"];
     if (props.isSelected) {
         classNames.push("selected");
     }

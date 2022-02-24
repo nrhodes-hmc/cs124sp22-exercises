@@ -6,30 +6,26 @@ import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 const data = [
     {
-        id: 512,
-        name: "Neil Rhodes",
-        email: "rhodes@hmc.edu",
-        phone: "(909) 555-1212"
+        id: "1276",
+        name: "Neil Campbell Rhodes",
+        email: "rhodes+junkmail@hmc.edu",
+        phone: "+1 (909) 555-1212"
     },
     {
-        id: 787,
-        name: "Barack Obama",
+        id: "787",
+        name: "Barack Hussein Obama II",
         email: "ex-prez@whitehouse.gov",
-        phone: "(312) 555-1212"
+        phone: "+1 (312) 555-1212"
+    },
+    {
+        id: "889",
+        name: "Jo Smith",
+        email: "festival21@hotmail.com",
+        phone: "+1 (123) 555-1212"
     }
 ];
 
-
 function App() {
-    /*
-    <Person {...p}/>
-     is equivalent to:
-     <Person name={p.name} email={p.email} phone={p.phone}/>
-
-     <>
-     is equivalent to:
-     <React.Fragment>
-     */
     const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
     const [people, setPeople] = useState(data);
 
@@ -67,9 +63,6 @@ function App() {
 
     return <>
         <h1>People ({selectedPeopleIds.length}/{people.length} selected)</h1>
-        <button type={"button"} onClick={handleAddPerson}>Add</button>
-        {selectedPeopleIds.length > 0 &&
-        <button type={"button"} onClick={handleDeleteSelected}>Delete Selected</button>}
         <People people={people} selectedPeopleIds={selectedPeopleIds}
                 onPersonSelected={handlePersonSelected}
                 onPersonChangeField={handleChangeField}
