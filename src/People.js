@@ -46,6 +46,9 @@ function People(props) {
         </a>
 
         <div className="buttons">
+            <button className="add-button" type="button" onClick={props.onAddPerson}>
+                Add
+            </button>
             {selectedIds.length > 0 &&
             <button className="delete-button"
                     type="button"
@@ -55,9 +58,6 @@ function People(props) {
                         }}>
                 <img width="12" src={trashicon}/>
             </button>}
-            <button className="add-button" type="button" onClick={props.onAddPerson}>
-                Add
-            </button>
         </div>
         <table>
             <thead>

@@ -27,7 +27,6 @@ table {
     width: 80px;
     display: flex;
     justify-content: left;
-    flex-direction: row-reverse;
 }
 
 .delete-button {
