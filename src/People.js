@@ -43,7 +43,7 @@ function People(props) {
         {/* NOTE: feel free to re-order items in the below JSX. */}
         {/* Following div will open the link in a new page */}
         <div id="webpage-link"
-             onClick={() => window.open("https://www.cs.hmc.edu/~rhodes/courses/cs124/fa21/schedule.html", '_blank').focus()}>
+             onClick={() => window.open("https://www.cs.hmc.edu/~rhodes/cs124/schedule.html", '_blank').focus()}>
             CS 124 Webpage
         </div>
 
