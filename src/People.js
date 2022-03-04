@@ -41,11 +41,9 @@ function People(props) {
 
     return <>
         {/* NOTE: feel free to re-order items in the below JSX. */}
-        {/* Following div will open the link in a new page */}
-        <div id="webpage-link"
-             onClick={() => window.open("https://www.cs.hmc.edu/~rhodes/cs124/schedule.html", '_blank').focus()}>
+        <a href="https://www.cs.hmc.edu/~rhodes/cs124/schedule.html">
             CS 124 Webpage
-        </div>
+        </a>
 
         <div className="buttons">
             {selectedIds.length > 0 &&
