@@ -2,7 +2,7 @@
 }
 
 h1 {
-    font-size: 3vw;  /* font-size is relative to the view window */
+    font-size: 23pt;
 }
 
 tr:nth-child(even) {
