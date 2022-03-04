@@ -1,3 +1,29 @@
-.selected {
-    background-color: lightyellow;
+
+
+/* Has both name and header classes */
+.name.header {
+    width: 60%;
+}
+
+.name {
+    font-weight: bold;
+}
+
+/* Has both email and header classes */
+.email.header {
+    width: 25%;
+}
+
+.email {
+   color: #2a2a2a;
+}
+
+
+/* Has both phone and header classes */
+.phone.header {
+    width: 15%
+}
+
+.person {
+    border: 1px solid white;
 }

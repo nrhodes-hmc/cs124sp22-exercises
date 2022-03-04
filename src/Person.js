@@ -8,10 +8,10 @@ function Person(props) {
         classNames.push("selected");
     }
 
-    return <tr className={classNames.join(" ")}
-               onClick={
-                   (e) => (e.shiftKey ? props.onPersonToggleSelected : props.onPersonSelected)(person)
-               }>
+    return <tr className={classNames.join(" ")}>
+        <td><input type={"checkbox"} checked={props.isSelected}
+                   onChange={()=>props.onToggleSelected(props.person.id)}/>
+        </td>
         <PersonField field={"name"}
                      person={props.person}
                      onPersonChangeField={props.onPersonChangeField}/>

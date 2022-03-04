@@ -1,4 +1,39 @@
+.people {
+}
+
+h1 {
+    font-size: 3vw;  /* font-size is relative to the view window */
+}
+
+tr:nth-child(even) {
+    background: #41B478;
+}
+
+tr:nth-child(even) input {
+    background: #41B478;
+}
+
 table {
     width: 100%;
 }
 
+.header {
+    font-weight: bold;
+    font-size: small;
+    width: 25%;
+}
+
+.buttons {
+    width: 80px;
+    display: flex;
+    justify-content: left;
+    flex-direction: row-reverse;
+}
+
+.delete-button {
+    margin-left: 5px;
+}
+
+#webpage-link {
+    text-decoration: underline;
+}
