@@ -27,7 +27,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const auth = getAuth();
 
-const collectionName = "Collection-other-than-specified"
+const collectionName = "People-AuthenticationRequired"
 
 function App(props) {
     const [user, loading, error] = useAuthState(auth);
