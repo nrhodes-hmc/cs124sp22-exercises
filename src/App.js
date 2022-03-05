@@ -2,7 +2,7 @@ import './App.css';
 
 import People from './People';
 
-import {useState} from 'react';
+import { useState } from 'react';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
