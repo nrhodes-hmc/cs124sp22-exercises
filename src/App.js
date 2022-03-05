@@ -1,11 +1,12 @@
 import './App.css';
 
 import People from './People';
+
 import {useState} from 'react';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
-import {getAuth} from "firebase/auth";
+import {getAuth, signOut} from "firebase/auth";
 import {collection, deleteDoc, doc, getFirestore, setDoc} from "firebase/firestore";
 import {
     useAuthState,
@@ -37,6 +38,7 @@ function App(props) {
         return <div>
             {user.displayName || user.email}
             <SignedInApp {...props} user={user}/>
+            <button type="button" onClick={() => signOut(auth)}>Sign out</button>
         </div>
     } else {
         return <>
@@ -45,9 +47,6 @@ function App(props) {
         </>
     }
 }
-
-const FAKE_EMAIL = 'foo@bar.com';
-const FAKE_PASSWORD = 'xyzzyxx';
 
 function SignIn() {
     const [
