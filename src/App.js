@@ -103,7 +103,7 @@ function SignUp() {
         <input type="text" id='email' value={email}
                onChange={e=>setEmail(e.target.value)}/>
         <br/>
-        <label htmlFor='pw'>email: </label>
+        <label htmlFor='pw'>pw: </label>
         <input type="text" id='pw' value={pw}
                onChange={e=>setPw(e.target.value)}/>
         <br/>
