@@ -5,7 +5,12 @@ import {useState} from 'react';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
-import { collection, deleteDoc, doc, getFirestore, setDoc } from "firebase/firestore";
+import {getAuth} from "firebase/auth";
+import {collection, deleteDoc, doc, getFirestore, setDoc} from "firebase/firestore";
+import {
+    useAuthState,
+    useSignInWithGoogle
+} from 'react-firebase-hooks/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,10 +24,52 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
+const auth = getAuth();
 
 const collectionName = "People-NoAuthenticationNeeded"
 
-function App() {
+function App(props) {
+    const [user, loading, error] = useAuthState(auth);
+
+    if (loading) {
+        return <p>Checking...</p>;
+    } else if (user) {
+        return <div>
+            {user.displayName || user.email}
+            <SignedInApp {...props} user={user}/>
+        </div>
+    } else {
+        return <>
+            {error && <p>Error App: {error.message}</p>}
+            <SignIn key="Sign In"/>
+        </>
+    }
+}
+
+const FAKE_EMAIL = 'foo@bar.com';
+const FAKE_PASSWORD = 'xyzzyxx';
+
+function SignIn() {
+    const [
+        signInWithGoogle, user, loading, error
+    ] = useSignInWithGoogle(auth);
+
+    if (user) {
+        // Shouldn't happen because App should see that
+        // we are signed in.
+        return <div>Unexpectedly signed in already</div>
+    } else if (loading) {
+        return <p>Logging in…</p>
+    }
+    return <div>
+        {error && <p>"Error logging in: " {error.message}</p>}
+        <button onClick={() =>
+            signInWithGoogle()}>Login with Google
+        </button>
+    </div>
+}
+
+function SignedInApp() {
     const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
     const query = collection(db, collectionName);
     const [people, loading, error] = useCollectionData(query);
