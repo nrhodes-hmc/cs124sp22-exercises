@@ -2,7 +2,6 @@ import {Tab} from "./Tab";
 import {useState} from "react";
 
 function TabList(props) {
-    console.log("TabList props", props);
     const [activeTab, setActiveTab] = useState(props.children[0].key);
 
     return <div className="tabs">

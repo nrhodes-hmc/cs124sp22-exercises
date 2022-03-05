@@ -1,6 +1,7 @@
 import './App.css';
 
 import People from './People';
+import TabList from './TabList';
 
 import { useState } from 'react';
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
@@ -18,6 +19,7 @@ import {
 } from "firebase/firestore";
 import {
     useAuthState,
+    useCreateUserWithEmailAndPassword,
     useSignInWithGoogle
 } from 'react-firebase-hooks/auth';
 
@@ -51,14 +53,18 @@ function App(props) {
     } else {
         return <>
             {error && <p>Error App: {error.message}</p>}
-            <SignIn key="Sign In"/>
+            <TabList>
+                <SignIn key="Sign In"/>
+                <SignUp key="Sign Up"/>
+            </TabList>
         </>
     }
 }
 
 function SignIn() {
     const [
-        signInWithGoogle, user, loading, error
+        signInWithGoogle,
+        user, loading, error
     ] = useSignInWithGoogle(auth);
 
     if (user) {
@@ -73,6 +79,39 @@ function SignIn() {
         <button onClick={() =>
             signInWithGoogle()}>Login with Google
         </button>
+    </div>
+}
+
+function SignUp() {
+    const [
+        createUserWithEmailAndPassword,
+        userCredential, loading, error
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const [email, setEmail] = useState("");
+    const [pw, setPw] = useState("");
+
+    if (userCredential) {
+        // Shouldn't happen because App should see that
+        // we are signed in.
+        return <div>Unexpectedly signed in already</div>
+    } else if (loading) {
+        return <p>Signing up…</p>
+    }
+    return <div>
+        {error && <p>"Error signing up: " {error.message}</p>}
+        <label htmlFor='email'>email: </label>
+        <input type="text" id='email' value={email}
+               onChange={e=>setEmail(e.target.value)}/>
+        <br/>
+        <label htmlFor='pw'>email: </label>
+        <input type="text" id='pw' value={pw}
+               onChange={e=>setPw(e.target.value)}/>
+        <br/>
+        <button onClick={() =>
+            createUserWithEmailAndPassword(email, pw)}>
+            Create test user
+        </button>
+
     </div>
 }
 
