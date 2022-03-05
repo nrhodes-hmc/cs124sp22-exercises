@@ -7,19 +7,20 @@ import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
 import { collection, deleteDoc, doc, getFirestore, setDoc } from "firebase/firestore";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCYhMdciPP9F9Gs38fUEHnOP_C63RwkDFo",
-    authDomain: "cs124-firestore-impl-exercise.firebaseapp.com",
-    projectId: "cs124-firestore-impl-exercise",
-    storageBucket: "cs124-firestore-impl-exercise.appspot.com",
-    messagingSenderId: "492659596453",
-    appId: "1:492659596453:web:fa8ea46ba19f37c0fa414c"
+    apiKey: "AIzaSyB7fH6lmujJf65CW9WUr4CGBzNv5HidSIk",
+    authDomain: "cs124-auth-exercise.firebaseapp.com",
+    projectId: "cs124-auth-exercise",
+    storageBucket: "cs124-auth-exercise.appspot.com",
+    messagingSenderId: "136754614149",
+    appId: "1:136754614149:web:c6ca3b76aa539a557bfeec"
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 
-const collectionName = "People-0-A"
+const collectionName = "People-NoAuthenticationNeeded"
 
 function App() {
     const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
@@ -51,12 +52,16 @@ function App() {
     function handleAddPerson() {
         const uniqueId = generateUniqueID();
         setDoc(doc(db, collectionName, uniqueId),
-             {
-                 id: uniqueId,
-                 name: "",
-                 email: "",
-                 phone: "",
-             });
+            {
+                id: uniqueId,
+                name: "",
+                email: "",
+                phone: "",
+            });
+    }
+
+    if (error) {
+        return "error" + error;
     }
     if (loading) {
         return "loading..";
