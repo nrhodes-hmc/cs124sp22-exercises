@@ -70,8 +70,8 @@ function SignIn() {
 
 function SignedInApp() {
     const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
-    const query = collection(db, collectionName);
-    const [people, loading, error] = useCollectionData(query);
+    const q = query(collection(db, collectionName));
+    const [people, loading, error] = useCollectionData(q);
 
     function handlePersonSelected(person) {
         setSelectedPeopleIds([person.id]);
