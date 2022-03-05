@@ -109,6 +109,7 @@ function SignedInApp(props) {
         setDoc(doc(db, collectionName, uniqueId),
             {
                 id: uniqueId,
+                owner: props.user.uid,
                 name: "",
                 email: "",
                 phone: "",
