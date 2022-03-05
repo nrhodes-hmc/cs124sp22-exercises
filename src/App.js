@@ -2,9 +2,9 @@ import './App.css';
 
 import People from './People';
 import {useState} from 'react';
-import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
-import { useCollection, useCollectionData } from "react-firebase-hooks/firestore";
-import { initializeApp } from "firebase/app";
+import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
+import {useCollectionData} from "react-firebase-hooks/firestore";
+import {initializeApp} from "firebase/app";
 import { collection, deleteDoc, doc, getFirestore, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
