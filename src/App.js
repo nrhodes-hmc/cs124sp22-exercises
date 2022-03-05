@@ -7,7 +7,10 @@ import { useState } from 'react';
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
-import {getAuth, signOut} from "firebase/auth";
+import {
+    getAuth,
+    sendEmailVerification,
+    signOut } from "firebase/auth";
 import {
     collection,
     deleteDoc,
@@ -42,7 +45,10 @@ const collectionName = "People-AuthenticationRequired"
 
 function App(props) {
     const [user, loading, error] = useAuthState(auth);
-
+    function verifyEmail() {
+        sendEmailVerification(user);
+    }
+    
     if (loading) {
         return <p>Checking...</p>;
     } else if (user) {
@@ -50,6 +56,7 @@ function App(props) {
             {user.displayName || user.email}
             <SignedInApp {...props} user={user}/>
             <button type="button" onClick={() => signOut(auth)}>Sign out</button>
+            {!user.emailVerified && <button type="button" onClick={verifyEmail}>Verify email</button>}
         </div>
     } else {
         return <>
