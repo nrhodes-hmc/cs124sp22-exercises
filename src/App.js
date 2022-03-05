@@ -5,7 +5,7 @@ import {useState} from 'react';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
-import { collection, deleteDoc, doc, getFirestore, setDoc } from "firebase/firestore";
+import {collection, deleteDoc, doc, getFirestore, query, setDoc} from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,8 +24,8 @@ const collectionName = "People-NoAuthenticationNeeded"
 
 function App() {
     const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
-    const query = collection(db, collectionName);
-    const [people, loading, error] = useCollectionData(query);
+    const q = query(collection(db, collectionName));
+    const [people, loading, error] = useCollectionData(q);
 
     function handlePersonSelected(person) {
         setSelectedPeopleIds([person.id]);
