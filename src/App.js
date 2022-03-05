@@ -7,7 +7,15 @@ import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
 import {getAuth, signOut} from "firebase/auth";
-import {collection, deleteDoc, doc, getFirestore, setDoc} from "firebase/firestore";
+import {
+    collection,
+    deleteDoc,
+    doc,
+    getFirestore,
+    query,
+    setDoc,
+    where
+} from "firebase/firestore";
 import {
     useAuthState,
     useSignInWithGoogle
@@ -68,9 +76,10 @@ function SignIn() {
     </div>
 }
 
-function SignedInApp() {
+function SignedInApp(props) {
     const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
-    const q = query(collection(db, collectionName));
+    const q = query(collection(db, collectionName),
+        where("owner", "==", props.user.uid));
     const [people, loading, error] = useCollectionData(q);
 
     function handlePersonSelected(person) {
