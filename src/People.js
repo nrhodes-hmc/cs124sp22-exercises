@@ -5,12 +5,7 @@ function People(props) {
     return <table>
         <tbody>
         {props.people.map(p =>
-            <Person person={p}
-                    key={p.id}
-                    onPersonChangeField={props.onPersonChangeField}
-                    isSelected={props.selectedPersonId === p.id}
-                    onPersonSelected={props.onPersonSelected}/>
-        )}
+            <Person person={p} key={p.id}/>)}
         </tbody>
     </table>
 }

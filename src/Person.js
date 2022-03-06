@@ -1,12 +1,14 @@
 import './Person.css'
 import PersonField from './PersonField'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 function Person(props) {
     const dispatch = useDispatch();
     const person = props.person;
+    const isSelected =
+        useSelector(state => state.selectedId === person.id);
     const classNames = [];
-    if (props.isSelected) {
+    if (isSelected) {
         classNames.push("selected");
     }
 
@@ -17,14 +19,11 @@ function Person(props) {
                        {type: 'SELECT_PERSON',
                        person: person})}>
         <PersonField field={"name"}
-                     person={props.person}
-                     onPersonChangeField={props.onPersonChangeField}/>
+                     person={props.person}/>
         <PersonField field={"email"}
-                     person={props.person}
-                     onPersonChangeField={props.onPersonChangeField}/>
+                     person={props.person}/>
         <PersonField field={"phone"}
-                     person={props.person}
-                     onPersonChangeField={props.onPersonChangeField}/>
+                     person={props.person}/>
     </tr>;
 }
 

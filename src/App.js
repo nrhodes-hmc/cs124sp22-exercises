@@ -21,7 +21,7 @@ function App() {
         <button type={"button"} onClick={handleAddPerson}>Add</button>
         {selectedPersonId &&
         <button type={"button"} onClick={handleDeleteSelected}>Delete Selected</button>}
-        <People people={people} selectedPersonId={selectedPersonId}/>
+        <People people={people}/>
     </>;
 }
 
