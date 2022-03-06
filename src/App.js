@@ -4,8 +4,8 @@ import People from './People';
 import {useDispatch, useSelector} from 'react-redux';
 
 function App() {
-    const [people, selectedPersonId] =
-        useSelector(state => [state.people, state.selectedId]);
+    const [people, numSelectedPersons] =
+        useSelector(state => [state.people, state.selectedIds.length]);
     const dispatch = useDispatch()
 
     function handleAddPerson() {
@@ -17,9 +17,9 @@ function App() {
     }
 
     return <>
-        <h1>People ({selectedPersonId ? 1 : 0}/{people.length} selected)</h1>
+        <h1>People ({numSelectedPersons}/{people.length} selected)</h1>
         <button type={"button"} onClick={handleAddPerson}>Add</button>
-        {selectedPersonId &&
+        {numSelectedPersons > 0 &&
         <button type={"button"} onClick={handleDeleteSelected}>Delete Selected</button>}
         <People people={people}/>
     </>;

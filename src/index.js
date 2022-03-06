@@ -22,7 +22,7 @@ const INITIAL_STATE = {
             phone: "(312) 555-1212"
         }
     ],
-    selectedId: null
+    selectedIds: []
 }
 
 function rootReducer(state = INITIAL_STATE,
@@ -41,16 +41,24 @@ function rootReducer(state = INITIAL_STATE,
             };
 
         case 'DELETE_SELECTED_PERSON':
-            console.log('DELETE_SELECTED_PERSON',)
             return {
                 ...state,
-                people: state.people.filter(p => state.selectedId !== p.id),
-                selectedId: null
+                people: state.people.filter(p => !state.selectedIds.includes(p.id)),
+                selectedIds: []
             };
         case 'SELECT_PERSON':
             return {
                 ...state,
-                selectedId: action.person.id
+                selectedIds: [action.person.id]
+            }
+        case 'TOGGLE_SELECT_PERSON':
+            const personId = action.person.id;
+            const selectedIds = state.selectedIds;
+            return {
+                ...state,
+                selectedIds: selectedIds.includes(personId)
+                    ? selectedIds.filter(id => id !== personId)
+                    : [...selectedIds, personId]
             }
         case 'CHANGE_FIELD':
             return {
