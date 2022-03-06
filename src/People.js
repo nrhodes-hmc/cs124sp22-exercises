@@ -8,8 +8,7 @@ function People(props) {
             <Person person={p}
                     key={p.id}
                     onPersonChangeField={props.onPersonChangeField}
-                    isSelected={props.selectedPeopleIds.includes(p.id)}
-                    onPersonToggleSelected={props.onPersonToggleSelected}
+                    isSelected={props.selectedPersonId === p.id}
                     onPersonSelected={props.onPersonSelected}/>
         )}
         </tbody>

@@ -21,28 +21,11 @@ const data = [
 
 
 function App() {
-    /*
-    <Person {...p}/>
-     is equivalent to:
-     <Person name={p.name} email={p.email} phone={p.phone}/>
-
-     <>
-     is equivalent to:
-     <React.Fragment>
-     */
-    const [selectedPeopleIds, setSelectedPeopleIds] = useState([]);
+    const [selectedPersonId, setSelectedPersonId] = useState(null);
     const [people, setPeople] = useState(data);
 
-    function handlePersonSelected(person) {
-        setSelectedPeopleIds([person.id]);
-    }
-
-    function handlePersonToggleSelected(person) {
-        if (selectedPeopleIds.includes(person.id)) {
-            setSelectedPeopleIds(selectedPeopleIds.filter(p => p !== person.id));
-        } else {
-            setSelectedPeopleIds([...selectedPeopleIds, person.id]);
-        }
+    function handlePersonSelected(personId) {
+        setSelectedPersonId(personId);
     }
 
     function handleChangeField(personId, field, value) {
@@ -51,8 +34,8 @@ function App() {
     }
 
     function handleDeleteSelected() {
-        setPeople(people.filter(p => !selectedPeopleIds.includes(p.id)));
-        setSelectedPeopleIds([]);
+        setPeople(people.filter(p => selectedPersonId !== p.id));
+        setSelectedPersonId(null);
     }
 
     function handleAddPerson() {
@@ -66,14 +49,13 @@ function App() {
     }
 
     return <>
-        <h1>People ({selectedPeopleIds.length}/{people.length} selected)</h1>
+        <h1>People ({selectedPersonId ? 1 : 0}/{people.length} selected)</h1>
         <button type={"button"} onClick={handleAddPerson}>Add</button>
-        {selectedPeopleIds.length > 0 &&
+        {selectedPersonId &&
         <button type={"button"} onClick={handleDeleteSelected}>Delete Selected</button>}
-        <People people={people} selectedPeopleIds={selectedPeopleIds}
+        <People people={people} selectedPersonId={selectedPersonId}
                 onPersonSelected={handlePersonSelected}
-                onPersonChangeField={handleChangeField}
-                onPersonToggleSelected={handlePersonToggleSelected}/>
+                onPersonChangeField={handleChangeField}/>
     </>;
 }
 

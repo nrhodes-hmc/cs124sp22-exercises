@@ -10,7 +10,8 @@ function Person(props) {
 
     return <tr className={classNames.join(" ")}
                onClick={
-                   (e) => (e.shiftKey ? props.onPersonToggleSelected : props.onPersonSelected)(person)
+                   /* e.shiftKey is set if the shift key is on */
+                   (e) => props.onPersonSelected(person.id)
                }>
         <PersonField field={"name"}
                      person={props.person}
