@@ -1,7 +1,9 @@
 import './Person.css'
 import PersonField from './PersonField'
+import {useDispatch} from 'react-redux'
 
 function Person(props) {
+    const dispatch = useDispatch();
     const person = props.person;
     const classNames = [];
     if (props.isSelected) {
@@ -11,8 +13,9 @@ function Person(props) {
     return <tr className={classNames.join(" ")}
                onClick={
                    /* e.shiftKey is set if the shift key is on */
-                   (e) => props.onPersonSelected(person.id)
-               }>
+                   (e) => dispatch(
+                       {type: 'SELECT_PERSON',
+                       person: person})}>
         <PersonField field={"name"}
                      person={props.person}
                      onPersonChangeField={props.onPersonChangeField}/>

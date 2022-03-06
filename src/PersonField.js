@@ -1,12 +1,20 @@
 import './PersonField.css'
+import {useDispatch} from 'react-redux'
 
 function PersonField(props) {
+    const dispatch = useDispatch();
     return <td><input
         className={"person " + props.field}
         onClick={(e) => e.stopPropagation()}
         onChange={
-            (e) => props.onPersonChangeField(props.person.id, props.field, e.target.value)
-        }
+            (e) => dispatch(
+                {
+                    type: 'CHANGE_FIELD',
+                    id: props.person.id,
+                    field: props.field,
+                    value: e.target.value
+                }
+            )}
         value={props.person[props.field]}/>
     </td>
 }

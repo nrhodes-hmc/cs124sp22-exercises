@@ -5,9 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
+import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 const INITIAL_STATE = {
-    data: [
+    people: [
         {
             id: 512,
             name: "Neil Rhodes",
@@ -26,7 +27,40 @@ const INITIAL_STATE = {
 
 function rootReducer(state = INITIAL_STATE,
                      action) {
-    return state;
+    switch (action.type) {
+        case 'ADD_PERSON':
+            return {
+                ...state,
+                people: [...state.people,
+                    {
+                        id: generateUniqueID(),
+                        name: "",
+                        email: "",
+                        phone: "",
+                    }]
+            };
+
+        case 'DELETE_SELECTED_PERSON':
+            console.log('DELETE_SELECTED_PERSON',)
+            return {
+                ...state,
+                people: state.people.filter(p => state.selectedId !== p.id),
+                selectedId: null
+            };
+        case 'SELECT_PERSON':
+            return {
+                ...state,
+                selectedId: action.person.id
+            }
+        case 'CHANGE_FIELD':
+            return {
+                people: state.people.map(p => p.id !== action.id
+                    ? p
+                    : {...p, [action.field]: action.value})
+            }
+        default:
+            return state;
+    }
 }
 
 const store = createStore(rootReducer, INITIAL_STATE);
