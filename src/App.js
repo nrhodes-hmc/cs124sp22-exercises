@@ -62,7 +62,7 @@ function App() {
     }
 
     return <>
-        <h1>People ({selectedPeopleIds.length}/{people.length} selected)</h1>
+        <h1>People<span className={"selectedPeopleHeader"}> ({selectedPeopleIds.length}/{people.length} selected)</span></h1>
         <People people={people} selectedPeopleIds={selectedPeopleIds}
                 onPersonSelected={handlePersonSelected}
                 onPersonChangeField={handleChangeField}

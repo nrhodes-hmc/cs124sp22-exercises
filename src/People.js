@@ -1,13 +1,10 @@
 import './People.css';
 import Person from './Person';
-import { useMediaQuery } from 'react-responsive';
 
 function People(props) {
-    const narrow = useMediaQuery({maxWidth: 600})
-
     return <table>
         <thead>
-        {!narrow && <tr className={"people-header"}>
+        {<tr className={"people-header"}>
             <th className={"name header"}>Name</th>
             <th className={"email header"}>Email</th>
             <th className={"phone header"}>Phone</th>
