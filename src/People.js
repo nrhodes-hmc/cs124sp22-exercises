@@ -38,7 +38,6 @@ function People(props) {
     }
 
     const numSelectedString = `${selectedIds.length} of ${props.people.length} selected`;
-
     return <>
         {/* NOTE: feel free to re-order items in the below JSX. */}
         <a href="https://www.cs.hmc.edu/~rhodes/cs124/schedule.html">
@@ -51,6 +50,7 @@ function People(props) {
             </button>
             {selectedIds.length > 0 &&
             <button className="delete-button"
+                    aria-label="delete selected"
                     type="button"
                     onClick={
                         () => {
@@ -64,6 +64,7 @@ function People(props) {
             <tr>
                 <th><input type="checkbox"
                            checked={allSelected}
+                           aria-label={numSelectedString}
                            ref={checkboxRef}
                            disabled={props.people.length === 0 && "disabled"}
                            onChange={e=>handleSetAll(e.target.checked)}/></th>

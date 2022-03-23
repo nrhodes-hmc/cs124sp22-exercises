@@ -8,6 +8,7 @@ function PersonField(props) {
             onChange={
                 (e) => props.onPersonChangeField(props.person.id, props.field, e.target.value)
             }
+            aria-label={props.field}
             value={props.person[props.field]}/>
     </td>
 }
