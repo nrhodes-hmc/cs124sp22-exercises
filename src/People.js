@@ -40,25 +40,8 @@ function People(props) {
     const numSelectedString = `${selectedIds.length} of ${props.people.length} selected`;
     return <>
         {/* NOTE: feel free to re-order items in the below JSX. */}
-        <a href="https://www.cs.hmc.edu/~rhodes/cs124/schedule.html">
-            CS 124 Webpage
-        </a>
 
-        <div className="buttons">
-            <button className="add-button" type="button" onClick={props.onAddPerson}>
-                Add
-            </button>
-            {selectedIds.length > 0 &&
-            <button className="delete-button"
-                    aria-label="delete selected"
-                    type="button"
-                    onClick={
-                        () => {
-                            handleDelete();
-                        }}>
-                <img width="12" src={trashicon}/>
-            </button>}
-        </div>
+        <h1 id="h1">People ({numSelectedString})</h1>
         <table>
             <thead>
             <tr>
@@ -94,7 +77,24 @@ function People(props) {
                         person={p}/>)}
             </tbody>
         </table>
-        <h1 id="h1">People ({numSelectedString})</h1>
+        <div className="buttons">
+            <button className="add-button" type="button" onClick={props.onAddPerson}>
+                Add
+            </button>
+            {selectedIds.length > 0 &&
+            <button className="delete-button"
+                    aria-label="delete selected"
+                    type="button"
+                    onClick={
+                        () => {
+                            handleDelete();
+                        }}>
+                <img width="12" src={trashicon}/>
+            </button>}
+        </div>
+        <a href="https://www.cs.hmc.edu/~rhodes/cs124/schedule.html">
+            CS 124 Webpage
+        </a>
     </>
 }
 
